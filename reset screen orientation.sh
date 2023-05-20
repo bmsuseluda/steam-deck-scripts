@@ -1,3 +1,3 @@
 #!/bin/bash
 
-xrandr -o normal
+xrandr -o right

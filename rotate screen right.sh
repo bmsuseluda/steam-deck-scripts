@@ -1,6 +1,6 @@
 #!/bin/bash
 
-xrandr -o right
+xrandr -o inverted
 
 steamPid=$(pidof steam)
 
