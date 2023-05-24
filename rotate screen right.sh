@@ -1,11 +1,10 @@
 #!/bin/bash
 
-buildInScreen="eDP"
-
 # Rotate external screen if connected, else steam deck buildIn screen
 function rotateScreen {
   screens="$(xrandr | grep -Po '().+(?= connected)')"
   countScreens="$(echo "$screens" | wc -l)"
+  buildInScreen="$(echo "$screens" | grep -m1 "")"
 
   if [ "$countScreens" = 1 ]; then
     # Rotate steam deck buildIn screen
@@ -15,7 +14,7 @@ function rotateScreen {
     externalScreen="$(echo "$screens" | grep -m2 "" | tail -n1)"
     xrandr --output "$externalScreen" --rotate right
 
-    # Set steam deck buildIn screen off
+    # Turns off steam deck buildIn screen
     xrandr --output "$buildInScreen" --off
   fi
 }
