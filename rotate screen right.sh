@@ -1,21 +1,23 @@
 #!/bin/bash
 
-# Rotate external screen if connected, else steam deck screen
+buildInScreen="eDP"
+
+# Rotate external screen if connected, else steam deck buildIn screen
 function rotateScreen {
   screens="$(xrandr | grep -Po '().+(?= connected)')"
   countScreens="$(echo "$screens" | wc -l)"
 
   if [ "$countScreens" = 1 ]; then
-    # Rotate steam deck screen
-    screenToRotate="$(echo "$screens" | grep -m1 "")"
-    rotation="inverted"
+    # Rotate steam deck buildIn screen
+    xrandr --output "$buildInScreen" --rotate inverted
   else
     # Rotate external screen
-    screenToRotate="$(echo "$screens" | grep -m2 "" | tail -n1)"
-    rotation="right"
-  fi
+    externalScreen="$(echo "$screens" | grep -m2 "" | tail -n1)"
+    xrandr --output "$externalScreen" --rotate right
 
-  xrandr --output "$screenToRotate" --rotate "$rotation"
+    # Set steam deck buildIn screen off
+    xrandr --output "$buildInScreen" --off
+  fi
 }
 
 # Start steam in big picture mode. Closes already running steam instance before.
