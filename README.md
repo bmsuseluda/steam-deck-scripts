@@ -1,6 +1,6 @@
 # steam-deck-scripts
 
-Simple scripts to use on your Steam Deck
+Simple scripts to use on your Steam Deck.
 
 ## Rotate screen right
 
